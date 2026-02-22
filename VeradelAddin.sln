@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeradelAddin.Application", "VeradelAddin.Application\VeradelAddin.Application.csproj", "{0D57532B-B27C-4D4A-BF69-76513B5FB8E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeradelAddin.Infrastructure", "VeradelAddin.Infrastructure\VeradelAddin.Infrastructure.csproj", "{7B90CCE0-EAEC-4C46-8D0F-542EE25140FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeradelAddin.Domain", "VeradelAddin.Domain\VeradelAddin.Domain.csproj", "{71084475-8EB0-48D8-90F5-1BB18180242C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeradelAddin.Presentation", "VeradelAddin.Presentation\VeradelAddin.Presentation.csproj", "{8D4BD1DC-C620-4663-A7DA-CA3CC7883B95}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D57532B-B27C-4D4A-BF69-76513B5FB8E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D57532B-B27C-4D4A-BF69-76513B5FB8E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D57532B-B27C-4D4A-BF69-76513B5FB8E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D57532B-B27C-4D4A-BF69-76513B5FB8E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B90CCE0-EAEC-4C46-8D0F-542EE25140FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B90CCE0-EAEC-4C46-8D0F-542EE25140FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B90CCE0-EAEC-4C46-8D0F-542EE25140FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B90CCE0-EAEC-4C46-8D0F-542EE25140FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71084475-8EB0-48D8-90F5-1BB18180242C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71084475-8EB0-48D8-90F5-1BB18180242C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71084475-8EB0-48D8-90F5-1BB18180242C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71084475-8EB0-48D8-90F5-1BB18180242C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D4BD1DC-C620-4663-A7DA-CA3CC7883B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D4BD1DC-C620-4663-A7DA-CA3CC7883B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D4BD1DC-C620-4663-A7DA-CA3CC7883B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D4BD1DC-C620-4663-A7DA-CA3CC7883B95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D57532B-B27C-4D4A-BF69-76513B5FB8E5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7B90CCE0-EAEC-4C46-8D0F-542EE25140FB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{71084475-8EB0-48D8-90F5-1BB18180242C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{8D4BD1DC-C620-4663-A7DA-CA3CC7883B95} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9A08BCD7-B07F-4AA7-AC36-1DA3D5ABFD28}
+	EndGlobalSection
+EndGlobal
