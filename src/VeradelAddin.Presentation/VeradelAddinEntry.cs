@@ -68,8 +68,6 @@ namespace VeradelAddin.Presentation
                 "Convierte archivos",
                 Foo,
                 EnableFoo));
-                //));
-
 
 
             Manager.ActivateCommandManager();
@@ -90,7 +88,6 @@ namespace VeradelAddin.Presentation
 
         public int EnableMethod(string args)
         {
-
             return 1;
         }
 
