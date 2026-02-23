@@ -14,7 +14,8 @@ namespace VeradelAddin.Domain.DrawingUseCases.ExportDrawingFormat
         }
         public void ExecuteCommand()
         {
-
+            // 1. Obtener los formatos de conversion PDF DWG y STEP
+            // 2. 
 
 
 
