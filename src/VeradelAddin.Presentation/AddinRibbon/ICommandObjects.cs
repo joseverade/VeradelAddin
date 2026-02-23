@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace VeradelAddin.Presentation.AddinRibbon
 {
-    public class CommandWrapper
+    public interface ICommandObjects : IDisposable
     {
-
-
+        void SetUserID(int userID);
     }
 }

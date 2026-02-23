@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <ImplicitUsings>false</ImplicitUsings>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

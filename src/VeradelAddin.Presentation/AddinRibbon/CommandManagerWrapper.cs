@@ -1,56 +1,35 @@
 ﻿using SolidWorks.Interop.sldworks;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Proxies;
+using System.Xml;
 
 namespace VeradelAddin.Presentation.AddinRibbon
 {
-    public sealed class CommandManagerWrapper
+    public sealed class CommandManagerWrapper : IDisposable
     {
+
         private readonly int _cookie;
+
         private readonly SldWorks _swApp;
-        public CommandManager SwCommandManager { get; private set; }
-        private List<CommandGroupWrapper> commandGroupsWrappers;
-        private List<CommandWrapper> commandWrappersList;
+
+        private readonly CommandManagerMediator _mediator;
 
 
-
-        public CommandManagerWrapper(int cookie, SldWorks swApp)
+        public CommandManagerWrapper(int cookie, SldWorks swApp, CommandManagerMediator mediator)
         {
             _cookie = cookie;
             _swApp = swApp;
-            commandGroupsWrappers = new List<CommandGroupWrapper>();
-            commandWrappersList = new List<CommandWrapper>();
+            _mediator = mediator;
+            CreateCommandManagerInstance();
         }
 
+        private void CreateCommandManagerInstance() => _mediator.CreateCommanManager(_swApp.GetCommandManager(_cookie));
 
-        private void CreateRibbonAndCommands()
-        {
-            SwCommandManager = _swApp.GetCommandManager(_cookie);
+        public void ActivateCommandManager() => _mediator.Activate();
 
-            
-        }
+        public void ExecuteMethod(int index) => _mediator.ExecuteCommand(index);
 
-
-        public CommandGroupWrapper AddCommandGroup(string title, string toolTip, string hint)
-        {
-            int errors = 0;
-
-            CommandGroupWrapper newGroup =  new CommandGroupWrapper(title, toolTip, hint);
-
-            commandGroupsWrappers.Add(newGroup);
-
-            CommandGroup newCommandGroup = SwCommandManager.CreateCommandGroup2(commandGroupsWrappers.Count,
-                newGroup.Title, newGroup.ToolTip, newGroup.Hint, 1, true, errors);
-
-            newGroup.SwGroup = newCommandGroup;
-
-            return newGroup;
-        }
-
-        public void ActivateCommandManager()
-        {
-
-        }
-
+        public void Dispose() => _mediator.Dispose();
     }
 }
