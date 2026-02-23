@@ -17,14 +17,10 @@ namespace VeradelAddin.Presentation.AddinRibbon
         public int CommandIndex {  get; private set; }
         public Action CallbackFunction { get; private set; }
         public Func<int> EnableMethod { get; set; }
-
-
-        //CommandManagerMediator _mediator;
     
         public CommandItemWrapper(string name, string hintString, string tooltip,
             Action callbackFunction, Func<int> enableMethod)
         {
-            //_mediator = mediator;
             Name = name;
             HintString = hintString;   
             ToolTip = tooltip;
