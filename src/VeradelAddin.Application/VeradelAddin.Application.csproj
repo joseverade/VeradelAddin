@@ -8,11 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VeradelAddin.Domain\VeradelAddin.Domain.csproj" />
+    <Compile Remove="Features\DrawingExportFormat\DTOs\**" />
+    <EmbeddedResource Remove="Features\DrawingExportFormat\DTOs\**" />
+    <None Remove="Features\DrawingExportFormat\DTOs\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\DrawingExport\DTOs\" />
+    <ProjectReference Include="..\VeradelAddin.Domain\VeradelAddin.Domain.csproj" />
   </ItemGroup>
 
 </Project>

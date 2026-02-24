@@ -26,15 +26,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SolidWorks.Interop.sldworks, Version=32.1.0.123, Culture=neutral, PublicKeyToken=7c4797c3e4eeac03, processorArchitecture=MSIL">
-      <HintPath>..\packages\SolidWorks.Interop.sldworks.32.1.0\lib\netstandard2.0\SolidWorks.Interop.sldworks.dll</HintPath>
+      <HintPath>..\..\packages\SolidWorks.Interop.sldworks.32.1.0\lib\netstandard2.0\SolidWorks.Interop.sldworks.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="SolidWorks.Interop.swconst, Version=32.1.0.123, Culture=neutral, PublicKeyToken=19f43e188e4269d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\SolidWorks.Interop.swconst.32.1.0\lib\netstandard2.0\SolidWorks.Interop.swconst.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="SolidWorks.Interop.swpublished, Version=32.1.0.123, Culture=neutral, PublicKeyToken=89a97bdc5284e6d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\SolidWorks.Interop.swpublished.32.1.0\lib\netstandard2.0\SolidWorks.Interop.swpublished.dll</HintPath>
+      <HintPath>..\..\packages\SolidWorks.Interop.swconst.32.1.0\lib\netstandard2.0\SolidWorks.Interop.swconst.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
@@ -48,12 +44,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Solidworks\DrawingExport\DrawingExportInfra.cs" />
+    <Compile Include="Solidworks\DrawingDoc\DrawingDocService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FileSystem\" />
     <Folder Include="Logs\" />
-    <Folder Include="Solidworks\CommandManager\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VeradelAddin.Application\VeradelAddin.Application.csproj">
+      <Project>{572438fa-3e72-216a-4aa5-6eb7a137698f}</Project>
+      <Name>VeradelAddin.Application</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

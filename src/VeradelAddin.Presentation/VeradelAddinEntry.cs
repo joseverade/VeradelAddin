@@ -1,7 +1,6 @@
-﻿ using System;
+﻿using System;
 using SolidWorks.Interop.swpublished;
 using SolidWorks.Interop.sldworks;
-using System.Dynamic;
 using VeradelAddin.Presentation.AddinRibbon;
 using System.Runtime.InteropServices;
 
@@ -66,7 +65,10 @@ namespace VeradelAddin.Presentation
                 "Conversor de archivos",
                 "Convierte archivos a diferentes formatos",
                 "Convierte archivos",
-                Foo,
+                new VeradelAddin.Application.Features.DrawingExport.UseCases.DrawingExportUseCase(
+                    new Infrastructure.Solidworks.DrawingDocService.DrawingDocService(SwApp,3),, new Application.Common.Drawing.DrawingDTOs.ConvertDrawingDTO(), 
+
+                    ),
                 EnableFoo));
 
 

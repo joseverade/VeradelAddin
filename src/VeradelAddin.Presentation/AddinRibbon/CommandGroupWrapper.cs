@@ -1,8 +1,5 @@
 ﻿using SolidWorks.Interop.sldworks;
-using SolidWorks.Interop.swconst;
-using System;
 using System.IO;
-using System.Net;
 using System.Reflection;
 namespace VeradelAddin.Presentation.AddinRibbon
 {
