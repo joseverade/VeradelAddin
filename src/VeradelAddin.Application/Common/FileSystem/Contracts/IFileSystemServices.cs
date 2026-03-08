@@ -2,11 +2,11 @@
 {
     public interface IFileSystemServices
     {
-        bool CheckOldVersion(string olderVersionFilename);
-        void CopyAllFilesFromFolder(string tempFolderPath, string path);
-        void CreateFolder(string path, string v);
-        string CreateTempFolder();
-        void MoveFile(string path, string olderVersionFilename, object draw, string extension);
-        bool TryDeleteFile(string exportFileName);
+        bool CheckFileExists(string Filename);
+        void CopyAllFilesFromDirectory(string BaseDirectoryPath, string DestinationDirectoryPath);
+        void CreateDirectory(string BaseDirectoryPath, string DirectoryName);
+        string GetNewTempDirectoryPath();
+        bool MoveFile(string BaseDirectoryPath, string DestinationDirectoryName, string Filename, string Extension);
+        bool TryDeleteFile(string Filename);
     }
 }

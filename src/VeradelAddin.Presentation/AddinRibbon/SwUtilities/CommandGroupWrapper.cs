@@ -1,7 +1,7 @@
 ﻿using SolidWorks.Interop.sldworks;
 using System.IO;
 using System.Reflection;
-namespace VeradelAddin.Presentation.AddinRibbon
+namespace VeradelAddin.Presentation.AddinRibbon.SwUtilies
 {
     public class CommandGroupWrapper : ICommandObjects
     {

@@ -9,7 +9,6 @@ namespace VeradelAddin.Infrastructure.Solidworks.Init
 {
     public class SolidWorksInitializer
     {
-
         public SldWorks SwApp { get; }
 
         public SolidWorksInitializer(SldWorks SwApp)

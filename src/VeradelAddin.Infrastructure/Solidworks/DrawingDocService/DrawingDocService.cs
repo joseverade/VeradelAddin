@@ -7,7 +7,7 @@ using VeradelAddin.Infrastructure.Solidworks.DrawingDocService.Exceptions;
 
 namespace VeradelAddin.Infrastructure.Solidworks.DrawingDocService
 {
-    public sealed class DrawingDocService : ISolidworksDrawing
+    public class DrawingDocService : ISolidworksDrawing
     {
 
         private readonly SldWorks _swApp;
@@ -24,6 +24,7 @@ namespace VeradelAddin.Infrastructure.Solidworks.DrawingDocService
         {
             _swApp = swApp;
             _rowOffset = rowOffset;
+            InitializeCommonObjects();
         }
 
         private void InitializeCommonObjects()
@@ -38,8 +39,9 @@ namespace VeradelAddin.Infrastructure.Solidworks.DrawingDocService
 
         public int GetRevionNumerTable()
         {
+            
             string[] names = _drawing.GetSheetNames();
-            if (names == null) throw new DrawingExeptions.NoSheetAvaliable("No name sheet found");
+            if (names == null) throw new NoSheetAvaliableException("No name sheet found");
 
 
             RevisionTableAnnotation rTable = null;
@@ -60,24 +62,24 @@ namespace VeradelAddin.Infrastructure.Solidworks.DrawingDocService
             return ((TableAnnotation)rTable).RowCount - _rowOffset;
         }
 
-        public void SaveAsPDF(string tempFolderPath, string exportFileName)
+        public void SaveAsPDF(string tempDirectoryPath, string exportFileName)
         {
 
             ExportPdfData exportData = _swApp.GetExportFileData((int)swExportDataFileType_e.swExportPdfData);
             exportData.ViewPdfAfterSaving = false;
 
             ((ModelDoc2)_drawing).Extension.SaveAs3(
-                Path.Combine(tempFolderPath, exportFileName),
+                Path.Combine(tempDirectoryPath, exportFileName),
                (int)swSaveAsVersion_e.swSaveAsCurrentVersion,
                (int)swSaveAsOptions_e.swSaveAsOptions_Silent,
                exportData,
                _advancedOption, ref _error, ref _warnings);
         }
 
-        public void SaveAsDWG(string tempFolderPath, string exportFileName)
+        public void SaveAsDWG(string tempDirectoryPath, string exportFileName)
         {
             ((ModelDoc2)_drawing).Extension.SaveAs3(
-               Path.Combine(tempFolderPath, exportFileName),
+               Path.Combine(tempDirectoryPath, exportFileName),
               (int)swSaveAsVersion_e.swSaveAsCurrentVersion,
               (int)swSaveAsOptions_e.swSaveAsOptions_Silent,
               null,
@@ -86,7 +88,7 @@ namespace VeradelAddin.Infrastructure.Solidworks.DrawingDocService
 
 
 
-        public void SaveAsSTEP(string tempFolderPath, string exportFileName)
+        public void SaveAsSTEP(string tempDirectoryPath, string exportFileName)
         {
 
             Sheet activeSheet = _drawing.GetCurrentSheet();
@@ -129,7 +131,7 @@ namespace VeradelAddin.Infrastructure.Solidworks.DrawingDocService
             _swApp.ActivateDoc3(referencedName, false, (int)swRebuildOnActivation_e.swUserDecision, ref openDocErrors);
 
             referencedDocument.Extension.SaveAs3(
-                Path.Combine(tempFolderPath, exportFileName),
+                Path.Combine(tempDirectoryPath, exportFileName),
                 (int)swSaveAsVersion_e.swSaveAsCurrentVersion,
                 (int)swSaveAsOptions_e.swSaveAsOptions_Silent,
                 null,

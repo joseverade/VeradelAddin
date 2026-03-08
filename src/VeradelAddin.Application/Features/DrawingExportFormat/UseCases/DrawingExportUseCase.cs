@@ -23,16 +23,16 @@ namespace VeradelAddin.Application.Features.DrawingExport.UseCases
         private readonly IFileSystemServices _fileService;
 
         private ConvertDrawingDTO _drawingDTO;
-        private FolderDTO _oldFileName;
+        private DirectoryDTO _obsoleteDirectory;
 
         public DrawingExportUseCase(ISolidworksDrawing swAppDrawing, IFileSystemServices fileService,
-            ConvertDrawingDTO drawingDTO, ICollection<DrawingExportEnum> exportFormats, FolderDTO oldFileName)
+            ConvertDrawingDTO drawingDTO, ICollection<DrawingExportEnum> exportFormats, DirectoryDTO obsoleteDirectory)
         {
             _swAppDrawingService = swAppDrawing;
             _fileService = fileService;
             _drawingDTO = drawingDTO;
             _exportFormats = exportFormats;
-            _oldFileName = oldFileName;
+            _obsoleteDirectory = obsoleteDirectory;
         }
 
 
@@ -50,61 +50,71 @@ namespace VeradelAddin.Application.Features.DrawingExport.UseCases
 
             OlderVersionExists();
 
-            string tempFolderPath = _fileService.CreateTempFolder();
+            string tempDirectoryPath = _fileService.GetNewTempDirectoryPath();
 
             foreach (DrawingExportEnum format in _exportFormats)
             {
                 string exportFileName = DrawingExportPolicy.SetDrawingName(_drawingDTO.Filename, _drawingDTO.Revision, format);
 
                 if (!_fileService.TryDeleteFile(exportFileName)) throw new IOException("No se pudo eliminar el archivo, está en uso");
-                ExportDrawing(tempFolderPath, exportFileName, format);   
+                ExportDrawing(tempDirectoryPath, exportFileName, format);
             }
 
-            _fileService.CopyAllFilesFromFolder(tempFolderPath, _drawingDTO.Path);
+            _fileService.CopyAllFilesFromDirectory(tempDirectoryPath, _drawingDTO.Path);
         }
 
         /// <summary>
-        /// Checks whether an old version of the drawing to convert exists, and moves their files to an "obsolete" folder
+        /// Checks whether an old version of the drawing to convert exists, and moves their files to an "obsolete" Directory
         /// </summary>
         private void OlderVersionExists()
         {
             string olderVersionFilename = DrawingExportPolicy.GetOlderVesionFileWithoutExtension(_drawingDTO.Filename, _drawingDTO.Revision);
 
-            if (_fileService.CheckOldVersion(olderVersionFilename))
+            if (_fileService.CheckFileExists(olderVersionFilename))
             {
-                _fileService.CreateFolder(_drawingDTO.Path, _oldFileName.FolderName);
+                _fileService.CreateDirectory(_drawingDTO.Path, _obsoleteDirectory.DirectoryName);
 
                 foreach (DrawingExportEnum ext in _exportFormats)
                 {
                     string extension = DrawingExportPolicy.GetExtension(ext);
-                    _fileService.MoveFile(_drawingDTO.Path, Path.Combine(_drawingDTO.Path, _oldFileName.FolderName),
-                        olderVersionFilename, extension);
+
+                    if (!_fileService.MoveFile(_drawingDTO.Path,
+                        Path.Combine(_drawingDTO.Path, _obsoleteDirectory.DirectoryName),
+                        olderVersionFilename,
+                        extension))
+                    {
+                        throw new IOException("File could not be moved, maybe its opened by other user");
+                    }
                 }
             }
         }
 
 
         /// <summary>
-        /// Creates documents and exports to a temp folder
+        /// Creates documents and exports to a temp Directory
         /// </summary>
-        /// <param name="pathTempFolder"></param>
+        /// <param name="pathTempDirectory"></param>
         /// <param name="format"></param>
-        private void ExportDrawing(string pathTempFolder, string exportFileName , DrawingExportEnum format)
+        private void ExportDrawing(string pathTempDirectory, string exportFileName, DrawingExportEnum format)
         {
 
             switch (format)
             {
                 case DrawingExportEnum.PDF:
-                    _swAppDrawingService.SaveAsPDF(pathTempFolder, exportFileName);
+                    _swAppDrawingService.SaveAsPDF(pathTempDirectory, exportFileName);
                     break;
                 case DrawingExportEnum.DWG:
-                    _swAppDrawingService.SaveAsDWG(pathTempFolder, exportFileName);
+                    _swAppDrawingService.SaveAsDWG(pathTempDirectory, exportFileName);
                     break;
                 case DrawingExportEnum.STEP:
-                    _swAppDrawingService.SaveAsSTEP(pathTempFolder, exportFileName);
+                    _swAppDrawingService.SaveAsSTEP(pathTempDirectory, exportFileName);
                     break;
             }
         }
 
+        public int EnableMethod()
+        {
+            return 1;
+        }
     }
 }

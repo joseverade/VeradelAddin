@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swpublished;
-using SolidWorks.Interop.sldworks;
-using VeradelAddin.Presentation.AddinRibbon;
+using System;
 using System.Runtime.InteropServices;
+using VeradelAddin.Infrastructure.FileSystem;
+using VeradelAddin.Infrastructure.Solidworks.DrawingDocService;
+using VeradelAddin.Presentation.AddinRibbon.SwUtilies;
 
 namespace VeradelAddin.Presentation
 {
@@ -11,7 +13,7 @@ namespace VeradelAddin.Presentation
     [Guid("C8F26576-7712-4925-A28A-CA7EB31D4FC3")]
     public sealed class VeradelAddinEntry : SwAddin
     {
-        public static SldWorks SwApp;
+        private static SldWorks SwApp;
         private static int _cookie;
 
         CommandManagerWrapper Manager;
@@ -41,36 +43,16 @@ namespace VeradelAddin.Presentation
 
         private bool CreateAddinRibbon()
         {
-
             // Mediator class, it handles the communication between
             // CommandManager, CommandGroups and CommandItems
-            CommandManagerMediator commandManagerMediator = new CommandManagerMediator();
+            CommandManagerMediator mediator = new CommandManagerMediator();
 
             // CommandManager Wrapper
-            Manager = new CommandManagerWrapper(_cookie, SwApp, commandManagerMediator);
+            Manager = new CommandManagerWrapper(_cookie, SwApp, mediator);
 
-            // Creation of group 1
-            CommandGroupWrapper group1 = new CommandGroupWrapper(
-                "Veradel Grupo 1",
-                "Mejorar",
-                "Fluidez",
-                "ToolbarLarge.bmp",
-                false,
-                false,
-                true,
-                commandManagerMediator);
+            CustomCommandsBuilder commandBuilder = new CustomCommandsBuilder(mediator, SwApp);
 
-            // new CommandItem
-            group1.AddCommandItem(new CommandItemWrapper(
-                "Conversor de archivos",
-                "Convierte archivos a diferentes formatos",
-                "Convierte archivos",
-                new VeradelAddin.Application.Features.DrawingExport.UseCases.DrawingExportUseCase(
-                    new Infrastructure.Solidworks.DrawingDocService.DrawingDocService(SwApp,3),, new Application.Common.Drawing.DrawingDTOs.ConvertDrawingDTO(), 
-
-                    ),
-                EnableFoo));
-
+            commandBuilder.Build();
 
             Manager.ActivateCommandManager();
 
@@ -78,6 +60,8 @@ namespace VeradelAddin.Presentation
         }
 
 
+
+        #region Callback and Enable Methods
         public void CallbackFunction(string args)
         {
             int index;
@@ -93,24 +77,7 @@ namespace VeradelAddin.Presentation
             return 1;
         }
 
-
-        public void Foo()
-        {
-             SwApp.SendMsgToUser2("ABC",1,1);
-        }
-
-        public void Foo2()
-        {
-            SwApp.SendMsgToUser2("CDF", 1, 1);
-        }
-
-        public int EnableFoo()
-        {
-            return 1;
-        }
-
-
-
+        #endregion
 
         #region Functions for registry
  

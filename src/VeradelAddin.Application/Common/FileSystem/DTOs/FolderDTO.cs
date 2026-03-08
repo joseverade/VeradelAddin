@@ -1,7 +1,7 @@
 ﻿namespace VeradelAddin.Application.Common.FileSystem.DTOs
 {
-    public class FolderDTO
+    public class DirectoryDTO
     {
-        public string FolderName { get; set; }
+        public string DirectoryName { get; set; }
     }
 }

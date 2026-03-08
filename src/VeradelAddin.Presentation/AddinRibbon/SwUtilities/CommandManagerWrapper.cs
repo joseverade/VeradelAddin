@@ -1,10 +1,7 @@
 ﻿using SolidWorks.Interop.sldworks;
 using System;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Proxies;
-using System.Xml;
 
-namespace VeradelAddin.Presentation.AddinRibbon
+namespace VeradelAddin.Presentation.AddinRibbon.SwUtilies
 {
     public sealed class CommandManagerWrapper : IDisposable
     {
